@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f2f5;
+    --bg-chat: #efeae2;
+    --sidebar-bg: #ffffff;
+    --header-bg: #f0f2f5;
+    --bubble-sent: #d9fdd3;
+    --bubble-received: #ffffff;
+    --text-primary: #111b21;
+    --text-secondary: #54656f;
+    --text-muted: #8696a0;
+    --border-color: #e9edef;
+    --accent: #00a884;
+    --accent-hover: #017561;
+    --accent-light: #d9fdd3;
+    --online: #00a884;
+    --unread-badge: #25d366;
+  }
+
+  .dark {
+    --bg-primary: #111b21;
+    --bg-secondary: #202c33;
+    --bg-chat: #0b141a;
+    --sidebar-bg: #111b21;
+    --header-bg: #202c33;
+    --bubble-sent: #005c4b;
+    --bubble-received: #202c33;
+    --text-primary: #e9edef;
+    --text-secondary: #aebac1;
+    --text-muted: #8696a0;
+    --border-color: #2a3942;
+    --accent: #00a884;
+    --accent-hover: #06cf9c;
+    --accent-light: #005c4b;
+    --online: #00a884;
+    --unread-badge: #25d366;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "DM Sans", sans-serif;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #root {
+    height: 100vh;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+}
+
+@layer components {
+  .chat-bubble-sent {
+    background-color: var(--bubble-sent);
+    color: var(--text-primary);
+    border-radius: 8px 0px 8px 8px;
+    position: relative;
+  }
+
+  .chat-bubble-sent::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid var(--bubble-sent);
+    border-top: 0px solid transparent;
+    border-bottom: 8px solid transparent;
+  }
+
+  .chat-bubble-received {
+    background-color: var(--bubble-received);
+    color: var(--text-primary);
+    border-radius: 0px 8px 8px 8px;
+    position: relative;
+  }
+
+  .chat-bubble-received::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border-right: 8px solid var(--bubble-received);
+    border-top: 0px solid transparent;
+    border-bottom: 8px solid transparent;
+  }
+
+  .sidebar-item-active {
+    background-color: var(--header-bg);
+  }
+
+  .sidebar-item:hover {
+    background-color: var(--header-bg);
+    cursor: pointer;
+  }
+
+  .typing-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-muted);
+    animation: pulseDot 1.4s infinite ease-in-out;
+  }
+
+  .typing-dot:nth-child(1) { animation-delay: 0s; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  .input-field {
+    background-color: var(--header-bg);
+    color: var(--text-primary);
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    width: 100%;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    transition: background-color 0.2s;
+  }
+
+  .input-field::placeholder {
+    color: var(--text-muted);
+  }
+
+  .input-field:focus {
+    background-color: var(--bg-secondary);
+  }
+
+  .btn-primary {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: "DM Sans", sans-serif;
+    width: 100%;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.99);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Emoji picker dark mode override */
+.dark em-emoji-picker {
+  --background-rgb: 32, 44, 51;
+  --border-color: #2a3942;
+  --category-icon-active-color: #00a884;
+  --input-border-color: #2a3942;
+  --input-background: #111b21;
+  --color-a: #e9edef;
+}
