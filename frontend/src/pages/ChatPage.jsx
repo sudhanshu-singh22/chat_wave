@@ -36,15 +36,27 @@ export default function ChatPage() {
     load();
   }, [user]);
 
-  return (
-    <div className="flex h-screen overflow-hidden" style={{ background: "var(--bg-secondary)" }}>
-      {/* App wrapper with max width for large screens */}
-      <div className="flex w-full max-w-[1600px] mx-auto shadow-2xl overflow-hidden" style={{ background: "var(--bg-primary)" }}>
+return (
+  <div className="flex h-screen overflow-hidden" style={{ background: "var(--bg-secondary)" }}>
+    <div className="flex w-full max-w-[1600px] mx-auto shadow-2xl overflow-hidden" style={{ background: "var(--bg-primary)" }}>
+      
+      {/* On mobile: show sidebar only when no chat is active */}
+      <div className={`
+        ${activeChat ? "hidden" : "flex"} md:flex
+        w-full md:w-auto
+      `}>
         <Sidebar />
-        <div className="flex-1 flex flex-col overflow-hidden">
-          {activeChat ? <ChatWindow /> : <WelcomeScreen />}
-        </div>
       </div>
+
+      {/* On mobile: show chat only when a chat is active */}
+      <div className={`
+        ${activeChat ? "flex" : "hidden"} md:flex
+        flex-1 flex-col overflow-hidden
+      `}>
+        {activeChat ? <ChatWindow /> : <WelcomeScreen />}
+      </div>
+
     </div>
-  );
+  </div>
+);
 }

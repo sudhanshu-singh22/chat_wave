@@ -97,7 +97,6 @@ export default function ChatWindow() {
     if (!trimmed) return;
 
     if (isGroup) {
-      // Run moderation for group messages too
       setModerating(true);
       const flagged = await isMessageFlagged(trimmed);
       setModerating(false);
@@ -107,7 +106,6 @@ export default function ChatWindow() {
       }
 
       const socket = getSocket();
-      // Optimistic message — appears immediately, deduped when socket echo arrives
       const optimisticId = `optimistic-${Date.now()}`;
       const optimisticMsg = {
         id: optimisticId,
@@ -181,7 +179,6 @@ export default function ChatWindow() {
 
   // ── Header action handlers ──────────────────────────────────────────────
   const handleConfirmAction = async () => {
-    // Snapshot the chat id immediately — activeChat may change during async ops
     const chatId = activeChat?.id;
     if (!chatId) { setShowConfirm(null); return; }
     setActionLoading(true);
@@ -202,6 +199,11 @@ export default function ChatWindow() {
       setActionLoading(false);
       setShowConfirm(null);
     }
+  };
+
+  // ── Back to sidebar (mobile only) ───────────────────────────────────────
+  const handleBack = () => {
+    useChatStore.getState().setActiveChat(null);
   };
 
   // Group messages by date
@@ -227,6 +229,17 @@ export default function ChatWindow() {
         className="flex items-center gap-3 px-4 py-3 flex-shrink-0"
         style={{ background: "var(--header-bg)", borderBottom: "1px solid var(--border-color)" }}
       >
+        {/* ← Back button — mobile only */}
+        <button
+          onClick={handleBack}
+          className="md:hidden flex-shrink-0 p-1.5 -ml-1 rounded-full hover:opacity-70 transition-opacity"
+          style={{ color: "var(--text-muted)" }}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+
         {isGroup ? (
           <div className="w-11 h-11 rounded-full flex items-center justify-center text-lg font-bold text-white flex-shrink-0" style={{ background: "var(--accent)" }}>
             {activeChat?.name?.[0]?.toUpperCase() || "G"}

@@ -65,10 +65,11 @@ export default function Sidebar() {
   const tabs = ["chats", "groups", "users"];
 
   return (
-    <div
-      className="flex flex-col w-[380px] min-w-[320px] max-w-[420px] border-r h-full flex-shrink-0"
-      style={{ background: "var(--sidebar-bg)", borderColor: "var(--border-color)" }}
-    >
+    // REPLACE with:
+<div
+  className="flex flex-col w-full md:w-[380px] md:min-w-[320px] md:max-w-[420px] border-r h-full flex-shrink-0"
+  style={{ background: "var(--sidebar-bg)", borderColor: "var(--border-color)" }}
+>
       {/* ── Header ──────────────────────────────────────── */}
       <div className="flex items-center justify-between px-4 py-3" style={{ background: "var(--header-bg)" }}>
         <button onClick={() => setShowProfile(true)} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
